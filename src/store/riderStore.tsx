@@ -6,29 +6,30 @@ type CustomLocation = {
   latitude: number;
   longitude: number;
   address: string;
+  heading: number;
 } | null;
 
-interface UserStoreProps {
+interface RiderStoreProps {
   user: any;
   location: CustomLocation;
-  outOfRange: boolean;
-  setUser: (user: any) => void;
-  setOutOfRange: (data: boolean) => void;
+  onDuty: boolean;
+  setUser: (data: any) => void;
+  setOnDuty: (data: boolean) => void;
   setLocation: (data: CustomLocation) => void;
-  clearData: () => void;
+  clearRiderData: () => void;
 }
 
-export const useUserStore = create<UserStoreProps>()(
+export const useRiderStore = create<RiderStoreProps>()(
   persist((set) => ({
     user: null,
     location: null,
-    outOfRange: false,
+    onDuty: false,
     setUser: (data) => set({ user: data }),
     setLocation: (data) => set({ location: data }),
-    setOutOfRange: (data) => set({ outOfRange: data }),
-    clearData: () => set({ user: null, location: null, outOfRange: false }),
+    setOnDuty: (data) => set({ onDuty: data }),
+    clearRiderData: () => set({ user: null, location: null, onDuty: false }),
   }), {
-    name: "user-store",
+    name: "rider-store",
     partialize: (state) => ({ user: state.user }),
     storage: createJSONStorage(() => mmkvStorage),
   })
